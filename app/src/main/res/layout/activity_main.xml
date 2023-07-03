@@ -1,31 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.example.customviewapp.customview.CustomAViewGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/purple_200">
+    <data>
+        <variable name="user" type="com.example.customviewapp.databinding.User" />
+        <variable name="handler" type="com.example.customviewapp.databinding.ClickHandler" />
+        <variable
+            name="name"
+            type="androidx.databinding.ObservableField&lt;String&gt;" />
+    </data>
 
-        <Button
-            android:layout_width="100dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        tools:context=".MainActivity">
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="button1"/>
+            android:text="@{name}"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{user.firstName}"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{user.lastName}"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@={name}"
+            android:hint="请输入你想输入的文字"/>
 
         <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="button1"
+            android:onClick="@{handler::buttonClick}"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="button2"
+            android:onClick="@{() -> handler.onUserInfoClick(user)}"/>
+
+        <ImageView
+            android:layout_marginTop="20dp"
             android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:text="button2"/>
+            android:layout_height="200dp"
+            android:src="@color/purple_200"
+            android:scaleType="centerCrop"
+            app:image="@{name}"/>
 
-        <Button
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:text="button3"/>
-
-    </com.example.customviewapp.customview.CustomAViewGroup>
-
-</LinearLayout>
+    </LinearLayout>
+</layout>
